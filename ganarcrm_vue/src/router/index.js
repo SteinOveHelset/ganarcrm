@@ -7,6 +7,8 @@ import SignUp from '../views/SignUp.vue'
 import LogIn from '../views/LogIn.vue'
 import Dashboard from '../views/dashboard/Dashboard.vue'
 import MyAccount from '../views/dashboard/MyAccount.vue'
+import Leads from '../views/dashboard/Leads.vue'
+import AddLead from '../views/dashboard/AddLead.vue'
 
 const routes = [
   {
@@ -47,7 +49,23 @@ const routes = [
     meta: {
       requireLogin: true
     }
-  }
+  },
+  {
+    path: '/dashboard/leads',
+    name: 'Leads',
+    component: Leads,
+    meta: {
+      requireLogin: true
+    }
+  },
+  {
+    path: '/dashboard/leads/add',
+    name: 'AddLead',
+    component: AddLead,
+    meta: {
+      requireLogin: true
+    }
+  },
 ]
 
 const router = createRouter({
