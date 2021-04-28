@@ -9,6 +9,7 @@
         <div class="navbar-menu">
             <div class="navbar-end">
                 <router-link to="/dashboard/leads" class="navbar-item">Leads</router-link>
+                <router-link to="/dashboard/team" class="navbar-item">Team</router-link>
     
                 <div class="navbar-item">
                     <div class="buttons">
