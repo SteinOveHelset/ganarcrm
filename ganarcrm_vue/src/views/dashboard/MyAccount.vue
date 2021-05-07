@@ -6,7 +6,11 @@
             </div>
 
             <div class="column is-12">
-                <button @click="logout()" class="button is-danger">Log out</button>
+                <div class="buttons">
+                    <router-link :to="{ name: 'EditMember', params: { id: $store.state.user.id }}" class="button is-light">Edit</router-link>
+
+                    <button @click="logout()" class="button is-danger">Log out</button>
+                </div>
             </div>
         </div>
     </div>
