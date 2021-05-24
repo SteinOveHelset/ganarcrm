@@ -53,11 +53,30 @@ export default {
     name: 'Plans',
     data() {
         return {
+            pub_key: '',
+            stripe: null
         }
     },
-    mounted() {
+    async mounted() {
+        await this.getPubKey()
+        
+        this.stripe = Stripe(this.pub_key)
     },
     methods: {
+        async getPubKey() {
+            this.$store.commit('setIsLoading', true)
+
+            await axios
+                .get(`/api/v1/stripe/get_stripe_pub_key/`)
+                .then(response => {
+                    this.pub_key = response.data.pub_key
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+
+            this.$store.commit('setIsLoading', false)
+        },
         async subscribe(plan) {
             this.$store.commit('setIsLoading', true)
 

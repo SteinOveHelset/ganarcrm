@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.http import Http404
 
@@ -40,6 +41,12 @@ class UserDetail(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def get_stripe_pub_key(requets):
+    pub_key = settings.STRIPE_PUB_KEY
+
+    return Response({'pub_key': pub_key})
 
 @api_view(['GET'])
 def get_my_team(request):
