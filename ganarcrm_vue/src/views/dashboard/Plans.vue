@@ -84,7 +84,18 @@ export default {
                 plan: plan
             }
 
-            await axios
+            axios
+                .post('/api/v1/stripe/create_checkout_session/', data)
+                .then(response => {
+                    console.log(response)
+
+                    return this.stripe.redirectToCheckout({sessionId: response.data.sessionId})
+                })
+                .catch(error => {
+                    console.log('Error:', error)
+                })
+
+            /*await axios
                 .post(`/api/v1/teams/upgrade_plan/`, data)
                 .then(response => {
                     console.log('Upgraded plan')
@@ -112,7 +123,7 @@ export default {
                 })
                 .catch(error => {
                     console.log(error)
-                })
+                })*/
 
             this.$store.commit('setIsLoading', false)
         }

@@ -29,6 +29,11 @@ STRIPE_SECRET_KEY = 'sk_test_51IskUtBa5bOHd7L5JLISWCnXcFxecSIZdUQfcXBbJAj3NpqfRr
 STRIPE_PRICE_ID_SMALL_TEAM = 'price_1IuXkUBa5bOHd7L5VxwI8XnS'
 STRIPE_PRICE_ID_BIG_TEAM = 'price_1IuXlABa5bOHd7L5D7zel5a6'
 
+STRIPE_WEBHOOK_KEY = 'whsec_iV0qP1UMZEvR53tkDW7rGBE6EgFZ6sxj'
+
+FRONTEND_WEBSITE_SUCCESS_URL = 'http://localhost:8081/dashboard/team/plans/thankyou'
+FRONTEND_WEBSITE_CANCEL_URL = 'http://localhost:8081/dashboard/team/plans'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
