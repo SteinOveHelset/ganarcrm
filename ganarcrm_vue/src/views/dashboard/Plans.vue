@@ -40,6 +40,12 @@
                     <button @click="subscribe('bigteam')" class="button is-primary">Subscribe</button>
                 </div>
             </div>
+
+            <hr>
+
+            <div class="column is-12">
+                <button @click="cancelPlan()" class="button is-danger">Cancel plan</button>
+            </div>
         </div>
     </div>
 </template>
@@ -73,6 +79,34 @@ export default {
                 })
                 .catch(error => {
                     console.log(error)
+                })
+
+            this.$store.commit('setIsLoading', false)
+        },
+        async cancelPlan() {
+            this.$store.commit('setIsLoading', true)
+
+            axios
+                .post('/api/v1/teams/cancel_plan/')
+                .then(response => {
+                    this.$store.commit('setTeam', {
+                        'id': response.data.id, 
+                        'name': response.data.name,
+                        'plan': response.data.plan.name,
+                        'max_leads': response.data.plan.max_leads,
+                        'max_clients': response.data.plan.max_clients
+                    })
+
+                    toast({
+                        message: 'The plan was cancelled!',
+                        type: 'is-success',
+                        dismissible: true,
+                        pauseOnHover: true,
+                        duration: 2000,
+                        position: 'bottom-right',
+                    })
+
+                    this.$router.push('/dashboard/team')
                 })
 
             this.$store.commit('setIsLoading', false)

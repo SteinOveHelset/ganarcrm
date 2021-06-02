@@ -1,4 +1,5 @@
 import json
+from rest_framework.serializers import Serializer
 import stripe
 
 from datetime import datetime
@@ -120,6 +121,24 @@ def check_session(request):
         error = 'There something wrong. Please try again!'
 
         return Response({'error': error})
+
+@api_view(['POST'])
+def cancel_plan(request):
+    team = Team.objects.filter(members__in=[request.user]).first()
+    plan_free = Plan.objects.get(name='Free')
+
+    team.plan = plan_free
+    team.plan_status = Team.PLAN_CANCELLED
+    team.save()
+
+    try:
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        stripe.Subscription.delete(team.stripe_subscription_id)
+    except Exception:
+        return Response({'error': 'Something went wrong. Please try again'})
+    
+    serializer = TeamSerializer(team)
+    return Response(serializer.data)
 
 @api_view(['POST'])
 def create_checkout_session(request):
